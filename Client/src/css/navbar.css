@@ -1,0 +1,43 @@
+nav{
+    position: relative;
+    top:0;
+    height: 12svh;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    padding:1rem;
+    align-items: center;
+}
+.left, .right{
+    display: flex;
+    flex-direction: row;
+}
+
+.right{
+    border: .2rem #000 solid;
+    border-radius:1.5rem;
+    padding:.3rem;
+    align-items: center;
+    justify-content: center;
+    gap:1rem;
+    justify-content: space-evenly;
+}
+.left{
+    align-self: center;    
+    width: 20svw;
+}
+a{
+    text-decoration: none;
+    outline-color: transparent;
+    text-align: right;
+    color: black;
+    position:relative;
+    display:block;
+}
+span{
+    position: absolute;
+    top:.8rem;
+    padding-left: .7rem;
+    font-family: 'Lato';
+}
