@@ -1,5 +1,6 @@
 package com.c1646njava.tuvivienda.models.post;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.c1646njava.tuvivienda.models.administrator.Administrator;
@@ -63,9 +64,12 @@ public class Post {
     @Column(name="state")
     private String state;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private User user;
+
+    @ManyToMany
+    @JoinTable(name = "user_favorites",
+            joinColumns = @JoinColumn(name = "post_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private List<User> fav = new ArrayList<>();
     @ManyToOne
     @JoinColumn(name = "administrator_id", referencedColumnName = "id")
     private Administrator administrator;

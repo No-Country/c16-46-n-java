@@ -37,8 +37,8 @@ public class User {
     @Column(name = "country")
     private String country;
 
-    @OneToMany
-    private List<Post> fav;
+    @ManyToMany(mappedBy = "fav")
+    private List<Post> fav = new ArrayList<>();
 
     public User(RequestUser user){
         this.name = user.name();

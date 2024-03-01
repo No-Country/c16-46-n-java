@@ -1,5 +1,7 @@
 package com.c1646njava.tuvivienda.services.abstraction;
 
+import com.c1646njava.tuvivienda.models.administrator.Administrator;
+import com.c1646njava.tuvivienda.models.post.Post;
 import com.c1646njava.tuvivienda.models.user.User;
 import com.c1646njava.tuvivienda.models.user.dto.RequestUser;
 import org.springframework.stereotype.Service;
@@ -54,5 +56,43 @@ public interface UserService {
      * @return true if the user session is active, otherwise false.
      */
     Boolean checkSession();
+
+    /**
+     * This method allows a user to upgrade their account to an administrator account by providing their phone number.
+     *
+     * @param userId The ID of the user who wants to upgrade their account.
+     * @param phoneNumber The phone number of the user.
+     * @return A `User` object representing the user upgraded to administrator.
+     * @throws AuthenticationException If the user ID is invalid or the user is already an administrator.
+     * @throws IllegalArgumentException If the phone number is not in a valid format.
+     */
+    Administrator upgradeToAdmin(Long userId, String phoneNumber) throws AuthenticationException, IllegalArgumentException;
+
+    /**
+     * Toggles the presence of a post in the user's favorites list.
+     *
+     * @param userId The ID of the user for whom to toggle the favorite.
+     * @param postId The ID of the post to toggle as a favorite.
+     * @throws IllegalArgumentException If the user or post IDs are invalid.
+     */
+     void toggleFavorite(Long userId, Long postId);
+
+    /**
+     * Adds a post to the user's favorites list and the user to the post's list of users.
+     *
+     * @param user The user to add the post to their favorites.
+     * @param post The post to add to the user's favorites.
+     * @throws IllegalArgumentException If the user or post is null.
+     */
+     void addToFavorites(User user, Post post);
+
+    /**
+     * Removes a post from the user's favorites list and the user from the post's list of users.
+     *
+     * @param user The user from whose favorites to remove the post.
+     * @param post The post to remove from the user's favorites.
+     * @throws IllegalArgumentException If the user or post is null.
+     */
+     void removePostFromFavorites(User user, Post post);
 }
 

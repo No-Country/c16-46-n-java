@@ -1,5 +1,6 @@
 package com.c1646njava.tuvivienda.models.administrator;
 
+import com.c1646njava.tuvivienda.models.image.ImageUser;
 import com.c1646njava.tuvivienda.models.post.Post;
 import com.c1646njava.tuvivienda.models.user.User;
 import jakarta.persistence.*;
@@ -23,4 +24,7 @@ public class Administrator extends User {
     private String phoneNumber;
     @OneToMany
     private List<Post> posts;
+
+    public Administrator(String name, String email, String password, String phoneNumber, ImageUser avatar, List<Post> fav) {
+    }
 }

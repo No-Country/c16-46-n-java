@@ -18,4 +18,7 @@ public class ImageUser extends Image{
 
     @OneToOne
     private User user;
+
+    public ImageUser(User user, Image image) {
+    }
 }
