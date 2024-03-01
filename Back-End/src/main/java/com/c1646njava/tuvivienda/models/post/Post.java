@@ -58,6 +58,11 @@ public class Post {
     private int age;
     @Column(name="outstanding")
     private boolean outstanding;
+    @Column(name="country")
+    private String country;
+    @Column(name="state")
+    private String state;
+
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
