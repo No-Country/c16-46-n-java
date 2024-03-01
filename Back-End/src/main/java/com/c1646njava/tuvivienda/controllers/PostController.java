@@ -22,10 +22,10 @@ import java.util.List;
 @RequestMapping("/post")
 public class PostController implements PostControllerA {
 
-    private PostService postservice;
+    private PostService postservicio;
 
-    public PostController(PostService postservice) {
-        this.postservice = postservice;
+    public PostController(PostService postservicio) {
+        this.postservicio = postservicio;
 
     }
 
@@ -33,69 +33,60 @@ public class PostController implements PostControllerA {
     @Override
     @GetMapping("/findByName/{address}")
     public ResponseEntity<List<Post>> searchByLocation(@PathVariable("address") String address) throws postNotFoundException{
-        return ResponseEntity.ok(postservice.searchByLocation(address));
+        return ResponseEntity.ok(postservicio.searchByLocation(address));
     }
     @Override
     @GetMapping("/findByType/{type}")
     public ResponseEntity<List<Post>> searchByType(@PathVariable("type") String type) throws postNotFoundException{
-        return ResponseEntity.ok(postservice.searchByType(type));
+        return ResponseEntity.ok(postservicio.searchByType(type));
     }
     @Override
     @GetMapping("/findByBedrooms/{bedrooms}")
     public ResponseEntity<List<Post>> searchByBedrooms(@PathVariable("bedrooms") Integer bedrooms) throws postNotFoundException{
-        return ResponseEntity.ok(postservice.searchByBedrooms(bedrooms));
+        return ResponseEntity.ok(postservicio.searchByBedrooms(bedrooms));
     }
     @Override
     @GetMapping("/findByPrice")
     public ResponseEntity<List<Post>>  searchByPrice(@RequestParam(name = "lowprice") Long lowprice, @RequestParam(name = "highprice") Long highprice)
             throws postNotFoundException
     {
-        return ResponseEntity.ok(postservice.searchByPrice(lowprice, highprice));
+        return ResponseEntity.ok(postservicio.searchByPrice(lowprice, highprice));
 
     }
 
 
     @Override
     @GetMapping("/searchByFilter")
-    public ResponseEntity<Page<Post>> getByFilter(
-            @RequestBody List<FilterDTO> filterDTOList, // List of filters provided in the request body
-            @SortDefault(sort = "id", direction = Sort.Direction.DESC) // Default sorting by ID in descending order
-            @PageableDefault(page = 0, size = 10) Pageable pageable // Default pagination: page 0, page size 10
-    ) throws postNotFoundException {
-        // Call the service method to search for posts using the provided filters and pagination
-        Page<Post> posts = postservice.searchByFilter(filterDTOList, pageable);
-        // Check if posts are found
-        if (!posts.isEmpty()) {
-            // If posts are found, return a response with the posts and an OK status
+    public ResponseEntity<Page<Post>> getByFilter(@RequestBody List<FilterDTO> filterDTOList, @SortDefault(sort = "id", direction = Sort.Direction.DESC)  @PageableDefault(page = 0, size = 10) Pageable pageable) throws postNotFoundException{
+        Page<Post> posts = postservicio.searchByFilter(filterDTOList,pageable);
+        if(!posts.isEmpty()){
             return ResponseEntity.ok(posts);
-        } else {
-            // If no posts are found, throw a postNotFoundException
-            throw new postNotFoundException("There isn't a post with the indicated filters");
+        }else{
+            throw new postNotFoundException("There isn't a post with the indicate values");
         }
     }
 
-
     @GetMapping("/findById/{id}")//*
     public ResponseEntity<Post> getById(@PathVariable("id") Long id) throws postNotFoundException {
-        return ResponseEntity.ok(postservice.findById(id));
+        return ResponseEntity.ok(postservicio.findById(id));
     }
 
     @Override
     @PutMapping("/actualizarAll/{id}")
     public ResponseEntity<Post> putById(@PathVariable("id") Long id, @Valid @RequestBody Post post) throws postNotFoundException, MethodArgumentNotValidException {
-        return ResponseEntity.ok(postservice.putById(id,post));
+        return ResponseEntity.ok(postservicio.putById(id,post));
     }
 
     @Override
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deletePost(@PathVariable("id") Long id) throws postNotFoundException {
-        return ResponseEntity.ok(postservice.deleteById(id));
+        return ResponseEntity.ok(postservicio.deleteById(id));
     }
 
     @Override
     @PatchMapping("/actualizarCampos/{id}")
     public ResponseEntity<Post> patchPost(@PathVariable Long id, @Valid @RequestBody Post fields) throws postNotFoundException, MethodArgumentNotValidException, IllegalAccessException {
-        return ResponseEntity.ok(postservice.patchById(id, fields));
+        return ResponseEntity.ok(postservicio.patchById(id, fields));
     }
 
 
@@ -103,13 +94,13 @@ public class PostController implements PostControllerA {
     @Override
     @PostMapping("/create") //*
     public ResponseEntity<Post> createPost( @Valid @RequestBody Post post) throws entityCreationException, MethodArgumentNotValidException{
-        return ResponseEntity.ok(postservice.crearPost(post));
+        return ResponseEntity.ok(postservicio.crearPost(post));
 
     }
 
     @GetMapping("/getall")
     public ResponseEntity<Page<Post>> getAll(@SortDefault(sort = "id", direction = Sort.Direction.DESC)  @PageableDefault(page = 0, size = 10) Pageable pageable)  {
-        return ResponseEntity.ok(postservice.getAll(pageable));
+        return ResponseEntity.ok(postservicio.getAll(pageable));
     }
 
 

@@ -50,69 +50,21 @@ public interface PostService {
      */
     List<Post> searchByPrice(Long priceLow, Long priceHigh) throws postNotFoundException;
 
-    /**
-     * Searches posts based on the provided filters with pagination.
-     *
-     * @param filterDtoList The list of filter DTOs to apply.
-     * @param pageable      The pagination information.
-     * @return A page of posts that match the specified filters.
-     */
+
     Page<Post> searchByFilter(List<FilterDTO> filterDtoList, Pageable pageable);
 
-    /**
-     * Creates a new post.
-     *
-     * @param post The post object to be created, JSON Object.
-     * @return The created post.
-     * @throws entityCreationException If the entity was not persisted correctly.
-     */
+
     Post crearPost(Post post) throws entityCreationException ;
 
-    /**
-     * Finds a post by its ID.
-     *
-     * @param id The ID of the post to find.
-     * @return The post with the specified ID.
-     * @throws postNotFoundException If no post is found with the given ID.
-     */
     Post findById(Long id) throws postNotFoundException;
 
-    /**
-     * Deletes a post by its ID.
-     *
-     * @param id The ID of the post to delete.
-     * @return A message confirming the deletion.
-     * @throws postNotFoundException If no post is found with the given ID.
-     */
+
     String deleteById(Long id) throws postNotFoundException;
 
-    /**
-     * Updates a post with the specified ID.
-     *
-     * @param id   The ID of the post to update.
-     * @param post The updated post object.
-     * @return The updated post.
-     * @throws postNotFoundException If no post is found with the given ID.
-     */
     Post putById(Long id, Post post) throws postNotFoundException;
 
-    /**
-     * Partially updates a post with the specified ID using the provided fields.
-     *
-     * @param id  The ID of the post to update.
-     * @param fields The fields to be updated.
-     * @return The updated post.
-     * @throws postNotFoundException   If no post is found with the given ID.
-     * @throws IllegalAccessException If there's an illegal access exception during the update process.
-     */
     Post patchById(Long id,  Post fields) throws postNotFoundException, IllegalAccessException;
 
-    /**
-     * Retrieves all posts with pagination.
-     *
-     * @param pageable The pagination information (size, page number, sort).
-     * @return A page of posts.
-     */
     Page<Post> getAll(Pageable pageable);
 
 }

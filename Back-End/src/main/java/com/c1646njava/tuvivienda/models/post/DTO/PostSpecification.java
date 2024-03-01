@@ -24,13 +24,11 @@ public class PostSpecification {
             {
                 List<Predicate> predicates = new ArrayList<>();
                 filterDTOList.forEach(filter -> {
-                    //Create the query with root.get(param1) == root.get(param2)
+
                     Predicate predicate = criteriaBuilder.equal(root.get(filter.getColumnName()), filter.getColumnValue());
-                    //add each conditions to a list of conditions
                     predicates.add(predicate);
                 });
-                // convert list predicates in an array of type Predicate
-                // predicate1 AND predicate 2 AND ... predicate n
+
                 return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
             }
         };

@@ -20,17 +20,17 @@ import java.util.Optional;
 public class PostServiceI implements PostService {
 
 
-    private PostRepository postrepository;
+    private PostRepository postrepositorio;
     private Patcher patcher;
 
-    public PostServiceI(PostRepository postrepository, Patcher patcher) {
-        this.postrepository = postrepository;
+    public PostServiceI(PostRepository postrepositorio, Patcher patcher) {
+        this.postrepositorio = postrepositorio;
         this.patcher = patcher;
     }
 
     @Override
     public List<Post> searchByLocation(String address) throws postNotFoundException {
-        List<Post> listaposts = postrepository.searchByLocation(address);
+        List<Post> listaposts = postrepositorio.searchByLocation(address);
         if(!listaposts.isEmpty()){
             return listaposts;
         }else{
@@ -41,7 +41,7 @@ public class PostServiceI implements PostService {
 
     @Override
     public List<Post> searchByType(String type) throws postNotFoundException {
-        List<Post> listaposts = postrepository.searchByType(type);
+        List<Post> listaposts = postrepositorio.searchByType(type);
         if(!listaposts.isEmpty()){
             return listaposts;
         }else{
@@ -53,7 +53,7 @@ public class PostServiceI implements PostService {
 
     @Override
     public List<Post>  searchByBedrooms(Integer bedrooms1) throws postNotFoundException{
-        List<Post> listaposts = postrepository.searchByBedrooms(bedrooms1);
+        List<Post> listaposts = postrepositorio.searchByBedrooms(bedrooms1);
         if(!listaposts.isEmpty()){
             return listaposts;
         }else{
@@ -64,7 +64,7 @@ public class PostServiceI implements PostService {
 
     @Override
     public List<Post> searchByPrice(Long priceLow, Long PriceHigh) throws postNotFoundException {
-        List<Post> listaposts = postrepository.searchByPrice(priceLow,PriceHigh);
+        List<Post> listaposts = postrepositorio.searchByPrice(priceLow,PriceHigh);
         if(!listaposts.isEmpty()){
             return listaposts;
         }else{
@@ -76,13 +76,13 @@ public class PostServiceI implements PostService {
 
 
     public Page<Post> searchByFilter(List<FilterDTO> filterDtoList, Pageable pageable){
-        return postrepository.findAll(PostSpecification.columnEqual(filterDtoList),pageable);
+        return postrepositorio.findAll(PostSpecification.columnEqual(filterDtoList),pageable);
 
     }
 
     public Post crearPost(Post post) throws entityCreationException{
-        postrepository.save(post);
-        Optional<Post> posteo = postrepository.findById(post.getId());
+        postrepositorio.save(post);
+        Optional<Post> posteo = postrepositorio.findById(post.getId());
 
         if(posteo.isPresent()){
             return posteo.get();
@@ -93,7 +93,7 @@ public class PostServiceI implements PostService {
 
     @Override
     public Post findById(Long id) throws postNotFoundException {
-        Optional<Post> posteo = postrepository.findById(id);
+        Optional<Post> posteo = postrepositorio.findById(id);
         if(posteo.isPresent()){
             return posteo.get();
         }else{
@@ -103,9 +103,9 @@ public class PostServiceI implements PostService {
 
     @Override
     public String deleteById(Long id) throws postNotFoundException {
-        Optional<Post> posteo = postrepository.findById(id);
+        Optional<Post> posteo = postrepositorio.findById(id);
         if(posteo.isPresent()){
-            postrepository.deleteById(id);
+            postrepositorio.deleteById(id);
             return "Post eliminado";
         }else{
             throw new postNotFoundException("there isn't a post with the id: " + id);
@@ -115,11 +115,11 @@ public class PostServiceI implements PostService {
 
     @Override
     public Post putById(Long id, Post post) throws postNotFoundException {
-        Optional<Post> posteo = postrepository.findById(id);
+        Optional<Post> posteo = postrepositorio.findById(id);
         if(posteo.isPresent()){
             Post postinner = posteo.get();
             BeanUtils.copyProperties(post,postinner, "id");
-            postrepository.save(post);
+            postrepositorio.save(post);
             return post;
         }else{
             throw new postNotFoundException("there isn't a post with the id: " + id);
@@ -128,13 +128,13 @@ public class PostServiceI implements PostService {
 
     @Override
     public Post patchById(Long id,  Post fields) throws postNotFoundException, IllegalAccessException {
-        Optional<Post> posteoOptional = postrepository.findById(id);
+        Optional<Post> posteoOptional = postrepositorio.findById(id);
 
         if(posteoOptional.isPresent()){
             try {
                 Post postExistente = posteoOptional.get();
                 Patcher.postPatcher(postExistente, fields);
-                postrepository.save(postExistente);
+                postrepositorio.save(postExistente);
                 return postExistente;
             }catch(IllegalAccessException e){
                 throw new IllegalAccessException("Issue trying to execute reflexivity in Post class");
@@ -147,7 +147,7 @@ public class PostServiceI implements PostService {
 
     @Override
     public Page<Post> getAll( Pageable pageable){
-        return postrepository.findAll(pageable);
+        return postrepositorio.findAll(pageable);
     }
 
 
