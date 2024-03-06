@@ -70,11 +70,10 @@ public class UserServiceImp implements UserService {
         }
 
         // Update user to Administrator
-        Administrator admin = new Administrator(user.getName(), user.getEmail(), user.getPassword(), phoneNumber, user.getAvatar(), user.getFav());
-        admin.setId(user.getId()); // Set ID to maintain existing user data
+        Administrator admin = new Administrator(user.getName(),user.getCountry(), user.getEmail(), user.getPassword(), phoneNumber, user.getAvatar(), user.getFav());
+        admin.setUserId(user.getId()); // Set ID to maintain existing user data
         // Delete the old user entry
-        userRepository.deleteById(userId);
-
+        userRepository.delete(user);
         // Save the new administrator
         return userRepository.save(admin);
     }

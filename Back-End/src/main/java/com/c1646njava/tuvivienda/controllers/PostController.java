@@ -113,6 +113,10 @@ public class PostController implements PostControllerA {
         return ResponseEntity.ok(postservice.getAll(pageable));
     }
 
+    @GetMapping("/getAllByAdm/{admId}")
+    public ResponseEntity<?> getAllByAdm(@PathVariable Long admId){
+        return  ResponseEntity.ok(postservice.findAllPostByAdministrator(admId));
+    }
 
 
 

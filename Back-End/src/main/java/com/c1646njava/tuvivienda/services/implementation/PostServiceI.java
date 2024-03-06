@@ -150,14 +150,10 @@ public class PostServiceI implements PostService {
         return postrepository.findAll(pageable);
     }
 
-
-
-
-
-
-
-
-
+    @Override
+    public List<Post> findAllPostByAdministrator(Long administratorId) {
+        return postrepository.findPostsByAdministrator(administratorId);
+    }
 
 
 }

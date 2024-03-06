@@ -116,4 +116,6 @@ public interface PostService {
      */
     Page<Post> getAll(Pageable pageable);
 
+    List<Post> findAllPostByAdministrator(Long administratorId);
+
 }

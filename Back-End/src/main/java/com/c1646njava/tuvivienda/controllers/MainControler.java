@@ -83,7 +83,6 @@ public class MainControler {
         return new ResponseEntity<>(new Mensaje("The avatar has been update"), HttpStatus.OK);
     }
 
-
 @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> delete(@PathVariable("id") Long id) throws IOException{
         if(!imageUserServiceImp.exists(id)){

@@ -16,7 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Table(name = "administrator")
 public class Administrator extends User {
 
@@ -24,7 +24,16 @@ public class Administrator extends User {
     private String phoneNumber;
     @OneToMany
     private List<Post> posts;
+    @Column(name = "user_id")
+    private Long userId;
 
-    public Administrator(String name, String email, String password, String phoneNumber, ImageUser avatar, List<Post> fav) {
+    public Administrator(String name,String country, String email, String password, String phoneNumber, ImageUser avatar, List<Post> fav) {
+        super.setName(name);
+        super.setCountry(country);
+        super.setEmail(email);
+        super.setPassword(password);
+        this.setPhoneNumber(phoneNumber);
+        super.setAvatar(avatar);
+        super.setFav(fav);
     }
 }

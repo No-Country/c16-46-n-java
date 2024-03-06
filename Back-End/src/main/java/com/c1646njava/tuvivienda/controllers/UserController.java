@@ -40,14 +40,14 @@ public class UserController {
     public ResponseEntity<?> userLogin(@RequestBody RequestLogin requestLogin) throws AuthenticationException {
          try{
              User user = userServiceImp.loginUser(requestLogin.email(),requestLogin.password());
-             return ResponseEntity.status(HttpStatus.OK).body(userServiceImp.loginUser(requestLogin.email(),requestLogin.password()));
+             return ResponseEntity.status(HttpStatus.OK).body(user);
          }catch (AuthenticationException e){
              return ResponseEntity.status((HttpStatus.UNAUTHORIZED)).body(e.getMessage());
          }
     }
 
-    @PostMapping("/toggle_favorite")
-    public ResponseEntity<?> toggleFavorite(@RequestParam Long userId,@RequestParam Long postId) {
+    @PostMapping("/toggle_favorite/{userId}")
+    public ResponseEntity<?> toggleFavorite(@PathVariable Long userId,@RequestParam Long postId) {
         try {
             User user = userRepository.findById(userId)
                 .orElseThrow(() -> new AuthenticationException("Invalid email"));
@@ -60,8 +60,8 @@ public class UserController {
         }
     }
 
-    @PutMapping("/upgrade_to_admin/")
-    public ResponseEntity<?> upgradeToAdmin(@RequestParam Long userId, @RequestParam String phoneNumber) {
+    @PutMapping("/upgrade_to_admin/{userId}")
+    public ResponseEntity<?> upgradeToAdmin(@PathVariable Long userId, @RequestParam String phoneNumber) {
         try {
             User user = userRepository.findById(userId)
                     .orElseThrow(() -> new AuthenticationException("Invalid email"));
