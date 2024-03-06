@@ -92,6 +92,7 @@ public class Post extends createdDate{
     private List<User> fav = new ArrayList<>();
 
 
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "administrator_id", referencedColumnName = "id")
     private Administrator administrator;

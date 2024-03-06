@@ -82,8 +82,26 @@ public class UserController {
         return ResponseEntity.ok(userServiceImp.isAdmin(postId,userId));
 
     }
+    @PutMapping("/update/{userId}")
+    public ResponseEntity<String> updateUser(@PathVariable Long userId, @RequestBody RequestUser requestUser) {
+        userServiceImp.updateUser(userId, requestUser.name(), requestUser.email(), requestUser.country());
+        return ResponseEntity.ok("User details updated successfully");
+    }
 
+    @PutMapping("/update_password/{userId}")
+    public ResponseEntity<String> updatePassword(@PathVariable Long userId, @RequestBody RequestUser requestUser) {
+        try {
+            userServiceImp.updatePassword(userId, requestUser.password(), requestUser.password2());
+            return ResponseEntity.ok("Password updated successfully");
+        } catch (AuthenticationException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
 
-
+    @DeleteMapping("/delete/{userId}")
+    public ResponseEntity<String> deleteUser(@PathVariable Long userId) {
+        userServiceImp.deleteUser(userId);
+        return ResponseEntity.ok("User deleted successfully");
+    }
 
 }

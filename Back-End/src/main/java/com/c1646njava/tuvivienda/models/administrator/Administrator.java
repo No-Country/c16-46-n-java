@@ -4,6 +4,7 @@ import com.c1646njava.tuvivienda.models.image.ImageUser;
 import com.c1646njava.tuvivienda.models.post.Post;
 import com.c1646njava.tuvivienda.models.user.User;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -26,12 +27,12 @@ public class Administrator {
     @Column(name = "phone_number")
     private String phoneNumber;
 
-    @OneToMany(mappedBy = "administrator", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "administrator", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Post> posts;
 
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_Id", referencedColumnName = "id")
-
+    @JsonIgnore
     private User user;
 
     //This doesn't receive a list of post because when a user upgrade, it doesn't have any post yet
