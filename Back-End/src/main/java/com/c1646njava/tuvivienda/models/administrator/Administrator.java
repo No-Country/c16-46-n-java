@@ -26,13 +26,16 @@ public class Administrator {
     @Column(name = "phone_number")
     private String phoneNumber;
 
+    @JsonBackReference("administratorUser")
     @OneToMany(mappedBy = "administrator", cascade = CascadeType.REMOVE)
     private List<Post> posts;
 
+    @JsonBackReference
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_Id", referencedColumnName = "id")
-
     private User user;
+
+
 
     //This doesn't receive a list of post because when a user upgrade, it doesn't have any post yet
     public Administrator(String phoneNumber, User associatedUser) {

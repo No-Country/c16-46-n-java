@@ -25,6 +25,8 @@ public record RequestUser(
         @NotBlank(message = "Country is required")
         String country,
 
-        ImageUser avatar
+        ImageUser avatar,
+
+        int advertisingTokens
 ) {
 }

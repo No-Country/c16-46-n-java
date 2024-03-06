@@ -101,7 +101,8 @@ public class PostServiceI implements PostService {
 
     private postResponse convertToPostResponse(Post post) {
         postResponse postr = new postResponse();
-        BeanUtils.copyProperties(post, postr);
+        BeanUtils.copyProperties(post, postr,"image");
+        postr.setImages(post.getImage());
         postr.setAdministrator_id(post.getAdministrator().getId());
         return postr;
     }
@@ -227,6 +228,9 @@ public class PostServiceI implements PostService {
 
 
 
+    public List<Post> findAllPostByAdministrator(Long administratorId) {
+        return postrepository.findAllPostByAdministrator(administratorId);
+    }
 
 
 }
