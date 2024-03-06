@@ -220,13 +220,15 @@ public class PostServiceI implements PostService {
 
     }
 
-
     public List<Post> getAllFeaturedPost(){
         return postrepository.findByFeaturedEquals(1);
     }
 
 
-
+    @Override
+    public List<Post> findAllPostByAdministrator(Long administratorId) {
+        return postrepository.findPostsByAdministrator(administratorId);
+    }
 
 
 }

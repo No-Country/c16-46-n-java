@@ -120,6 +120,10 @@ public class PostController {
         return ResponseEntity.ok(postservice.getAll(pageable));
     }
 
+    @GetMapping("/getAllByAdm/{admId}")
+    public ResponseEntity<?> getAllByAdm(@PathVariable Long admId){
+        return  ResponseEntity.ok(postservice.findAllPostByAdministrator(admId));
+    }
 
 
 

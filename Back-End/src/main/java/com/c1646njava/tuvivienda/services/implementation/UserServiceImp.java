@@ -80,7 +80,6 @@ public class UserServiceImp implements UserService {
 
         // Update user to Administrator
         Administrator admin = new Administrator(phoneNumber, user);
-
         // Save the new administrator
         return administratorRepository.save(admin);
     }
