@@ -10,6 +10,7 @@ const initialRegisterData = {
   password: "",
   password2: "",
   country: "Argentina",
+  advertisingTokens: 2
 };
 
 const RegisterForm = () => {
