@@ -10,6 +10,7 @@ var connectingElement = document.querySelector('.connecting');
 
 var stompClient = null;
 var username = null;
+var receptor = null;
 
 var colors = [
     '#2196F3', '#32c787', '#00BCD4', '#ff5652',
@@ -18,6 +19,7 @@ var colors = [
 
 function connect(event) {
     username = document.querySelector('#name').value.trim();
+    receptor = document.querySelector('#recipientId').value.trim();
 
     if(username) {
         usernamePage.classList.add('hidden');
@@ -57,6 +59,7 @@ function sendMessage(event) {
     if(messageContent && stompClient) {
         var chatMessage = {
             sender: username,
+            recipient: receptor,
             content: messageInput.value,
             type: 'CHAT'
         };
