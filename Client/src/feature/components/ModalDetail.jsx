@@ -9,6 +9,12 @@ import { IoIosSend } from "react-icons/io";
 import CardComment from "./cards/CardComment";
 import { HomeContext } from "../../context/HomeContext";
 
+const initComments = [
+  { name: "Juan romero", content: "Es muy agradable el barrio" },
+  { name: "Luis Campos", content: "Es perfecta!" },
+  { name: "Juan romero", content: "Tiene zonas muy amplias" },
+];
+
 const iconSize = "2rem";
 const ModalPostDetail = ({ isOpen, onClose, post }) => {
   const { commentHookData, userHookData } = useContext(HomeContext);
@@ -28,6 +34,8 @@ const ModalPostDetail = ({ isOpen, onClose, post }) => {
       userId: idUser,
       content: comment,
     });
+
+    setComment("")
   };
 
   useEffect(() => {
@@ -36,7 +44,7 @@ const ModalPostDetail = ({ isOpen, onClose, post }) => {
     }
 
     console.log("all comments: ", commentHookData.allComments);
-  }, []);
+  }, [post]);
   return (
     <div
       className={`w-full h-full flex flex-col items-center justify-center fixed top-0 left-0 z-50 ${
@@ -137,9 +145,13 @@ const ModalPostDetail = ({ isOpen, onClose, post }) => {
           <section className="w-full">
             {/* CHAT CONTENT */}
             <div className="grow bg-white w-full space-y-2 overflow-y-auto px-6">
-              <CardComment />
-              <CardComment />
-              <CardComment />
+              {initComments.map(comnt => {
+                return <CardComment comment={comnt}/>
+              })}
+
+              {commentHookData.allComments && commentHookData.allComments.map(cmt => {
+                return <CardComment comment={cmt} />
+              }) }
             </div>
 
             {/* INPUT ADD COMMENT */}
