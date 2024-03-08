@@ -1,9 +1,16 @@
-import { useReducer } from "react";
-import { findAll,findPostByFilter, save, saveImgs } from "../services/postService";
+import { useReducer, useState } from "react";
+import {
+  findAdminPost,
+  findAll,
+  findPostByFilter,
+  save,
+  saveImgs,
+} from "../services/postService";
 import { postsReducer } from "../reducers/postsReducer";
 
 const usePost = () => {
   const [allPost, dispatch] = useReducer(postsReducer, []);
+  const [adminPost, setAdminPost] = useState([])
 
   const getAllPosts = async () => {
     const result = await findAll();
@@ -15,54 +22,58 @@ const usePost = () => {
     });
   };
 
-/*   const getPostByUser = async () => {
-    const response = await findAll()
-  } */
+    const getPostByUser = async (id) => {
+    const response = await findAdminPost(id)
 
-  const getPostByFilter = async (filter) => {
-    const result = await findPostByFilter(filter)
+    setAdminPost(response.data)
 
-    console.log("found by filter: ", result.data.content)
-
-    dispatch({
-      type: 'loadingPosts',
-      payload: result.data.content
-    })
   }
 
+  const getPostByFilter = async (filter) => {
+    const result = await findPostByFilter(filter);
+
+    console.log("found by filter: ", result.data.content);
+
+    dispatch({
+      type: "loadingPosts",
+      payload: result.data.content,
+    });
+  };
 
   // first create images then save post data
   const handlerSaveImages = async (images, post, userId) => {
-    
-    let response 
-    try{
+    let response;
+    try {
+      let postResult = await handlerCreatePost(post);
 
-      let postResult = await handlerCreatePost(post)
+      console.log("post result: ", postResult);
 
-      console.log("post result: ", postResult)
-  
-      console.log("images to save: ", images)
-  
-      const imgData = new FormData()
-      imgData.append('postId', postResult.data.id)
-      imgData.append('userId', userId)
-      imgData.append('multipartFile', images[0])
+      console.log("images to save: ", images);
 
+      let multipartImgs = []
+      images.map((img) => {
+        const imgData = new FormData();
+        imgData.append("postId", postResult.data.id);
+        imgData.append("userId", userId);
+        imgData.append("multipartFile", img);
 
-      response = await saveImgs(imgData)
-    }catch(error){
-      console.log("image error!!!", error.response)
+        multipartImgs.push(imgData)
+      });
+
+      console.log("multipart image: ", multipartImgs)
+
+      response = await saveImgs(imgData);
+    } catch (error) {
+      console.log("image error!!!", error.response);
     }
 
-
-    console.log("save img status: ", response)
-  }
+    console.log("save img status: ", response);
+  };
 
   const handlerCreatePost = async (post) => {
     let response;
 
     try {
-
       if (!post.id) {
         response = await save(post);
       } else {
@@ -73,8 +84,6 @@ const usePost = () => {
         type: post.id === 0 ? "addPost" : "updatePost",
         payload: response.data.content,
       });
-
-
     } catch (error) {
       if (error.response) {
         console.log("Post error!!!  ", error.response.data);
@@ -82,14 +91,15 @@ const usePost = () => {
       }
     }
 
-    return response
-
+    return response;
   };
 
   return {
     allPost,
+    adminPost,
     getAllPosts,
     getPostByFilter,
+    getPostByUser,
     handlerCreatePost,
     handlerSaveImages,
   };

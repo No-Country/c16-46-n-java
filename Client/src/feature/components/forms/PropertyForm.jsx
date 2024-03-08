@@ -11,7 +11,7 @@ const initPropertyData = {
   type: "Casa",
   country: "Colombia",
   bedrooms: 0,
-  contract_type: "Venta",
+  contractType: "Venta",
   bathrooms: 0,
   address: "",
   price: 0,

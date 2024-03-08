@@ -10,7 +10,7 @@ export const postsReducer = (state = [], action) => {
           },
         ];
   
-      case "updatePost":
+      /* case "updatePost":
         return state.map((u) => {
           if (u.id === action.payload.id) {
             return {
@@ -18,7 +18,7 @@ export const postsReducer = (state = [], action) => {
             };
           }
           return u;
-        });
+        }); */
   
       case "removePost":
         // return a new post without selected post

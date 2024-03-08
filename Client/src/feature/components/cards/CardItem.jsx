@@ -6,17 +6,20 @@ import { BiLike } from "react-icons/bi";
 import { CiStar } from "react-icons/ci";
 //import { FaStar } from "react-icons/fa";
 
-const CardItem = ({ post }) => {
+const CardItem = ({ post, onClickView }) => {
   return (
 
-    <div className="bg-white shadow relative rounded overflow-hidden m-2 border border-gray-300">
-      <a href="./id">
-        <div>
+    <div 
+    onClick={() => onClickView(post)}
+    className="bg-white relative rounded hover:shadow-lg
+    overflow-hidden m-2 border border-gray-300 flex flex-col">
+      
+        <div className="h-1/3 border-b-4 border-sky-700">
           {/* IMAGE RESOURCE */}
           <img
-            className="w-full"
-            src="https://umbral.co/wp-content/uploads/2021/11/DSC9262-P2.png"
-            alt="Sunset in the mountains"
+            className="w-full h-full"
+            src={post.images[0] && post.images[0].imageUrl}
+            alt="post image"
           />
           {/* LIKE BUTTON */}
           <BiLike
@@ -33,7 +36,7 @@ const CardItem = ({ post }) => {
         </div>
 
         {/* CARD BODY */}
-        <div className="px-4 flex flex-col py-4 space-y-4">
+        <div className="px-4 flex flex-col py-4 space-y-2 justify-between h-full grow">
           <h4 className="font-bold text-md">{post.name}</h4>
 
           <div>
@@ -43,31 +46,31 @@ const CardItem = ({ post }) => {
 
           {/* AREA AND ROOMS DATA */}
           <ul className="md:grid md:grid-cols-3">
-            <li className="flex flex-col">
+            <li className="flex md:flex-col">
               <span>Area(m²)</span>
-              <p className="font-bold">{post.area}</p>
+              <p className="font-bold w-full text-right md:text-left">{post.area}</p>
             </li>
 
-            <li className="flex flex-col">
+            <li className="flex md:flex-col">
               <span>Hab.</span>
-              <p className="font-bold">{post.bedrooms}</p>
+              <p className="font-bold w-full text-right md:text-left">{post.bedrooms}</p>
             </li>
 
-            <li className="flex flex-col">
+            <li className="flex md:flex-col">
               <span>Baños</span>
-              <p className="font-bold">{post.bathrooms}</p>
+              <p className="font-bold w-full text-right md:text-left">{post.bathrooms}</p>
             </li>
           </ul>
 
           {/* CONTACT */}
           <button
-            className="inline-block bg-cyan-700 rounded-lg
-        px-1 py-1 text-sm font-semibold text-white text-center"
+            className="inline-block border border-cyan-700 rounded-lg
+        px-1 py-1 text-sm font-semibold text-cyan-700 text-center"
           >
             Contactar
           </button>
         </div>
-      </a>
+      
     </div>
   );
 };

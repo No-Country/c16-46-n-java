@@ -6,7 +6,7 @@ const Settings = () => {
   const { userHookData, homeHookData } = useContext(HomeContext);
 
   const handleLogout = () => {
-    userHookData.handleLogout()
+    userHookData.handlerLogout()
     homeHookData.handlerCloseSideBar()
   }
 

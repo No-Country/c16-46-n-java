@@ -1,7 +1,8 @@
 import NavBar from "./feature/components/NavBar";
 import SideBar from "./feature/components/SideBar";
-import Modal from "./feature/components/Modal";
 import Home from "./pages/Home";
+import ModalChat from "./feature/components/ModalChat";
+import ModalPostDetail from "./feature/components/ModalDetail";
 
 function App() {
 
@@ -11,7 +12,8 @@ function App() {
       <main className="w-full h-full flex flex-col">
         <NavBar />
         <SideBar />
-        <Modal />
+        <ModalChat />
+        <ModalPostDetail />
         <Home />
         {/* <ChatFront /> */}
       </main>

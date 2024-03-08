@@ -14,11 +14,13 @@ const sizeFont = "1.5rem";
 
 const navItems = [
   {
-    icon: <BiMessageRoundedDots style={{ fontSize: sizeFont }} />,
+    /* icon: <BiMessageRoundedDots style={{ fontSize: sizeFont }} />, */
+    icon: <span>Mensajes</span>,
     name: "messages",
   },
   {
-    icon: <CgMenuRound style={{ fontSize: sizeFont }} />,
+    /* icon: <CgMenuRound style={{ fontSize: sizeFont }} />, */
+    icon: <span>Cuenta</span>,
     name: "settings",
   },
 ];
@@ -64,9 +66,10 @@ const NavBar = () => {
                 name={"login"}
                 onClick={homeHookData.handlerOpenSidebar}
               >
-                <picture>
+                {/* <picture>
                   <BsPersonCircle style={{ fontSize: sizeFont }} />
-                </picture>
+                </picture> */}
+                <span>Iniciar</span>
               </Link>
             </>
           )}
@@ -79,20 +82,22 @@ const NavBar = () => {
                 name="post"
                 onClick={homeHookData.handlerOpenSidebar}
               >
-                <picture>
+                {/* <picture>
                   <BsPostcardHeart style={{ fontSize: sizeFont }} />
-                </picture>
+                </picture> */}
+                <span>Publicaciones</span>
               </Link>
 
               <Link
                 to={`/publish`}
-                className=" text-blue-300 cursor-pointer"
+                className=" text-blue-300 cursor-pointer border p-2 rounded"
                 name="publish"
                 onClick={homeHookData.handlerOpenSidebar}
               >
-                <picture>
+                {/* <picture>
                   <MdOutlineAddToPhotos style={{ fontSize: sizeFont }} />
-                </picture>
+                </picture> */}
+                <span>Crear</span>
               </Link>
             </>
           )}

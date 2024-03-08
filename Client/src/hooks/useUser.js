@@ -15,7 +15,7 @@ export const useUser = () => {
   const [loginStatus, dispatch] = useReducer(userReducer, initialLogin);
 
  
-  const [isAdmin, setAdmin] = useState(initialLogin.user.administrator.id ? true : false)
+  const [isAdmin, setAdmin] = useState(initialLogin.user.administrator ? true : false)
 
   const handlerRegisterUser = async (user) => {
     let response;
