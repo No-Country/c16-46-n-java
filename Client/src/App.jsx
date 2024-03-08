@@ -1,7 +1,8 @@
 import NavBar from "./feature/components/NavBar";
 import SideBar from "./feature/components/SideBar";
-import Modal from "./feature/components/Modal";
 import Home from "./pages/Home";
+import ModalChat from "./feature/components/ModalChat";
+import ModalPostDetail from "./feature/components/ModalDetail";
 import { ToastContainer } from 'react-toastify';
 
 function App() {
@@ -11,6 +12,8 @@ function App() {
         <NavBar />
         <SideBar />
         <Modal />
+        <ModalChat />
+        <ModalPostDetail />
         <ToastContainer
           position="top-center"
           autoClose={5000}

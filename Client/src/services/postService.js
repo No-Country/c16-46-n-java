@@ -59,3 +59,15 @@ export const remove = async (id) => {
   }
   return undefined;
 };
+
+
+export const findAdminPost = async(id) => {
+
+  console.log("admin id for request: ", id)
+  try{
+    return await axios.get(`${DB_URL}/post/getAllByAdm/${id}`)
+  }catch(e){
+    throw e
+  }
+
+}

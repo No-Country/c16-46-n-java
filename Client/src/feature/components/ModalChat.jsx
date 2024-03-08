@@ -3,7 +3,7 @@ import { HomeContext } from "../../context/HomeContext";
 import { IoCloseCircleOutline } from "react-icons/io5";
 import Chat from "./Chat";
 
-const Modal = () => {
+const ModalChat = () => {
   const { homeHookData } = useContext(HomeContext);
 
   return (
@@ -27,4 +27,4 @@ const Modal = () => {
   );
 };
 
-export default Modal;
+export default ModalChat;

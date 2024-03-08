@@ -3,6 +3,7 @@ import { useHome } from "../hooks/useHome";
 import { HomeContext } from "./HomeContext";
 import { useUser } from "../hooks/useUser";
 import usePost from "../hooks/usePost";
+import useComments from "../hooks/useComments";
 
 const HomeProvider = ({ children }) => {
 
@@ -10,12 +11,14 @@ const HomeProvider = ({ children }) => {
   const homeHookData = useHome()
   const userHookData = useUser()
   const postHookData = usePost()
+  const commentHookData = useComments()
 
 
   const contextValue = {
     homeHookData,
     userHookData,
-    postHookData
+    postHookData,
+    commentHookData
   }
 
   return (
