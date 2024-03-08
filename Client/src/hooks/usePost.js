@@ -1,14 +1,15 @@
 import { useReducer } from "react";
 import { findAll,findPostByFilter, save, saveImgs } from "../services/postService";
 import { postsReducer } from "../reducers/postsReducer";
+import { toast } from 'react-toastify';
 
 const usePost = () => {
   const [allPost, dispatch] = useReducer(postsReducer, []);
 
   const getAllPosts = async () => {
     const result = await findAll();
-    console.log("!!! post request result :", result.data.content);
 
+    toast.info("Resultado de la busqueda: " + result.data.content);
     dispatch({
       type: "loadingPosts",
       payload: result.data.content,
@@ -21,7 +22,7 @@ const usePost = () => {
 
   const getPostByFilter = async (filter) => {
     const result = await findPostByFilter(filter)
-
+    //The filter options it's now working so i didn't use tostify for this one
     console.log("found by filter: ", result.data.content)
 
     dispatch({
@@ -39,9 +40,9 @@ const usePost = () => {
 
       let postResult = await handlerCreatePost(post)
 
-      console.log("post result: ", postResult)
-  
-      console.log("images to save: ", images)
+      toast.success("¡Imagen guardada correctamente!");
+      toast.info("Resultado del post: " + postResult);
+      toast.info("Imágenes para guardar: " + images);
   
       const imgData = new FormData()
       imgData.append('postId', postResult.data.id)
@@ -50,12 +51,14 @@ const usePost = () => {
 
 
       response = await saveImgs(imgData)
+      toast.info("Estatus de carga de imagen: " + response);
+
     }catch(error){
-      console.log("image error!!!", error.response)
+      toast.error("Imagen error: " + error.response);
     }
 
 
-    console.log("save img status: ", response)
+    toast.error("Error al guardar las imágenes.");
   }
 
   const handlerCreatePost = async (post) => {
@@ -77,8 +80,9 @@ const usePost = () => {
 
     } catch (error) {
       if (error.response) {
-        console.log("Post error!!!  ", error.response.data);
-        console.log("Post error!!!  ", error);
+
+        toast.error("Ha ocurrido un error con el post: " + error.response.data);
+        toast.error("Ha ocurrido un error con el post: " + error);
       }
     }
 
