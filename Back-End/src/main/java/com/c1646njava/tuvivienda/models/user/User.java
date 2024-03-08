@@ -40,7 +40,7 @@ public class User {
     @Column(name = "country")
     private String country;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "user", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     Administrator administrator;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)

@@ -26,7 +26,6 @@ public class UserServiceImp implements UserService {
     private final AdministratorRepository administratorRepository;
 
 
-
     @Override
     public User registerUser(RequestUser requestUser) {
         validateUserRequest(requestUser);
@@ -38,7 +37,6 @@ public class UserServiceImp implements UserService {
         user.setPassword(requestUser.password());
 
         return userRepository.save(user);
-
     }
 
 
