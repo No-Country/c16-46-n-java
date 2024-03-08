@@ -43,19 +43,11 @@ public interface UserService {
      */
     User loginUser(String email, String password) throws AuthenticationException;
 
-    /**
-     * This method is to exit the session.
-     *
-     * @return true if the user is successfully logged out, otherwise false.
-     */
-    Boolean logoutUser();
+    void deleteUser(Long userId);
 
-    /**
-     * This method is to check the user session.
-     *
-     * @return true if the user session is active, otherwise false.
-     */
-    Boolean checkSession();
+    void updateUser(Long userId, String name, String email, String country);
+
+    void updatePassword(Long userId, String password, String password2) throws AuthenticationException;
 
     /**
      * This method allows a user to upgrade their account to an administrator account by providing their phone number.
@@ -94,5 +86,6 @@ public interface UserService {
      * @throws IllegalArgumentException If the user or post is null.
      */
      void removePostFromFavorites(User user, Post post);
+
 }
 

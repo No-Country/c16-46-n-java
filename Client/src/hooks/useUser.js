@@ -1,17 +1,21 @@
-import { useReducer, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 import { login, save } from "../services/userService";
 import { userReducer } from "../reducers/userReducer";
 
 // search a login
 const initialLogin = JSON.parse(sessionStorage.getItem("login")) ?? {
   isAuth: false,
-  user: undefined,
+  user: {
+    administrator: {id: 0}
+  },
 };
 
 export const useUser = () => {
   // login status
   const [loginStatus, dispatch] = useReducer(userReducer, initialLogin);
-  const [isAdmin, setAdmin] = useState(false)
+
+ 
+  const [isAdmin, setAdmin] = useState(initialLogin.user.administrator.id ? true : false)
 
   const handlerRegisterUser = async (user) => {
     let response;
@@ -76,10 +80,21 @@ export const useUser = () => {
     }
   };
 
+
+  const handlerLogout = () => {
+    // change the isAuth to false
+    dispatch({
+      type: "logout",
+    })
+    // delete the local data user
+    sessionStorage.removeItem("login")
+  }
+
   return {
     loginStatus,
     isAdmin,
     handlerLoginUser,
     handlerRegisterUser,
+    handlerLogout
   };
 };

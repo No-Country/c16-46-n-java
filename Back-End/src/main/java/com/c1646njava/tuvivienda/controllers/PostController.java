@@ -8,6 +8,8 @@ import com.c1646njava.tuvivienda.models.post.DTO.postRequest;
 import com.c1646njava.tuvivienda.models.post.DTO.postResponse;
 import com.c1646njava.tuvivienda.models.post.Post;
 import com.c1646njava.tuvivienda.services.abstraction.PostService;
+import com.c1646njava.tuvivienda.services.implementation.PostServiceI;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -119,7 +121,10 @@ public class PostController {
     public ResponseEntity<Page<postResponse>> getAll(@SortDefault(sort = "featured", direction = Sort.Direction.DESC)  @PageableDefault(page = 0, size = 10) Pageable pageable)  {
         return ResponseEntity.ok(postservice.getAll(pageable));
     }
-
+    @GetMapping("/getAllByAdm/{admId}")
+    public ResponseEntity<?> getAllByAdm(@PathVariable Long admId){
+        return  ResponseEntity.ok(postservice.findAllPostByAdministrator(admId));
+    }
 
 
 

@@ -5,10 +5,10 @@ const imgConfig = {
   maxSize: 2,
 };
 
-const DragDropImage = () => {
+const DragDropImage = ({handleImages}) => {
   const [error, setError] = useState("");
 
-  const [imageFiles, setImaageFiles] = useState([]);
+  const [imageFiles, setImageFiles] = useState([]);
 
   // use to check file format size and quantity
   const validateFiles = (file) => {
@@ -40,8 +40,11 @@ const DragDropImage = () => {
     const validFiles = images.filter(validateFiles);
 
     // files that pass the validation
-    setImaageFiles(prev => [...prev, ...validFiles])
+    setImageFiles(prev => [...prev, ...validFiles])
 
+
+    // setting images
+    handleImages(images)
   }
 
   const handlerDrop = (e) => {
@@ -50,10 +53,14 @@ const DragDropImage = () => {
     setError("")
 
     const files = Array.from(e.dataTransfer.files)
+    console.log("images dropped: ", files)
 
     const validFiles = files.filter(validateFiles)
 
-    setImaageFiles(prev => [...prev, ...validFiles])
+    setImageFiles(prev => [...prev, ...validFiles])
+
+    // setting images
+    handleImages(files)
   }
 
   return (
@@ -86,7 +93,7 @@ const DragDropImage = () => {
             drop
           </p>
           <p className={`text-xs ${error ? "text-red-500" : "text-gray-500"}`}>
-            {error !== "" ? error : "SVG, PNG, JPG or GIF (MAX. 2MB)"}
+            {error !== "" ? error : "PNG o JPG (MAX. 2MB)"}
           </p>
         </div>
         <input

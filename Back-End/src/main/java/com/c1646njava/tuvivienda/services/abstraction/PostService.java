@@ -123,4 +123,5 @@ public interface PostService {
 
     List<Post> getAllFeaturedPost();
 
+    List<Post> findAllPostByAdministrator(Long administratorId);
 }

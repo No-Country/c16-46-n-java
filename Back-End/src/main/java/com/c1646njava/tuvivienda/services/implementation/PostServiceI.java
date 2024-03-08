@@ -232,6 +232,9 @@ public class PostServiceI implements PostService {
 
 
 
+    public List<Post> findAllPostByAdministrator(Long administratorId) {
+        return postrepository.findAllPostByAdministrator(administratorId);
+    }
 
 
 }

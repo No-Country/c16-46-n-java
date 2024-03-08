@@ -3,12 +3,21 @@ import { HomeContext } from "../../../context/HomeContext";
 import { MdLogout } from "react-icons/md";
 
 const Settings = () => {
-  const { userHookData } = useContext(HomeContext);
+  const { userHookData, homeHookData } = useContext(HomeContext);
+
+  const handleLogout = () => {
+    userHookData.handleLogout()
+    homeHookData.handlerCloseSideBar()
+  }
 
   return (
     <div className="w-full h-full flex flex-col items-center ">
+
+      {/* LOGOUT BUTTON */}
       {userHookData.loginStatus.isAuth && (
-        <button className="absolute p-2 text-white bg-sky-900 rounded top-0 right-0 m-8">
+        <button 
+        onClick={handleLogout}
+        className="absolute p-2 text-white bg-sky-900 rounded top-0 right-0 m-8">
           <MdLogout />
         </button>
       )}

@@ -8,18 +8,11 @@ import { useContext, useEffect, useState } from "react";
 import { HomeContext } from "../../context/HomeContext";
 import logo from "../../assets/Logo.svg";
 import { MdOutlineAddToPhotos } from "react-icons/md";
+import { BsPostcardHeart } from "react-icons/bs";
 
 const sizeFont = "1.5rem";
 
 const navItems = [
-  {
-    icon: <PiCalendarDuotone style={{ fontSize: sizeFont }} />,
-    name: "calendar",
-  },
-  {
-    icon: <MdOutlineNotificationsActive style={{ fontSize: sizeFont }} />,
-    name: "notifications",
-  },
   {
     icon: <BiMessageRoundedDots style={{ fontSize: sizeFont }} />,
     name: "messages",
@@ -79,16 +72,29 @@ const NavBar = () => {
           )}
 
           {userHookData.isAdmin && (
-            <Link
-              to={`/publish`}
-              className=" text-blue-300 cursor-pointer"
-              name="publish"
-              onClick={homeHookData.handlerOpenSidebar}
-            >
-              <picture>
-                <MdOutlineAddToPhotos style={{ fontSize: sizeFont }} />
-              </picture>
-            </Link>
+            <>
+              <Link
+                to={`/post`}
+                className=" text-blue-300 cursor-pointer"
+                name="post"
+                onClick={homeHookData.handlerOpenSidebar}
+              >
+                <picture>
+                  <BsPostcardHeart style={{ fontSize: sizeFont }} />
+                </picture>
+              </Link>
+
+              <Link
+                to={`/publish`}
+                className=" text-blue-300 cursor-pointer"
+                name="publish"
+                onClick={homeHookData.handlerOpenSidebar}
+              >
+                <picture>
+                  <MdOutlineAddToPhotos style={{ fontSize: sizeFont }} />
+                </picture>
+              </Link>
+            </>
           )}
         </section>
       </nav>

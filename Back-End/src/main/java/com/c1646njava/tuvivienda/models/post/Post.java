@@ -92,7 +92,7 @@ public class Post extends createdDate{
     private List<User> fav = new ArrayList<>();
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "administrator_id", referencedColumnName = "id")
     private Administrator administrator;
 

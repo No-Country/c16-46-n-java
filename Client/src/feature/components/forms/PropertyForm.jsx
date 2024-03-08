@@ -1,28 +1,31 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { MdAddAPhoto } from "react-icons/md";
 import usePost from "../../../hooks/usePost";
 import { HomeContext } from "../../../context/HomeContext";
 import DragDropImage from "../DragDropImage";
 
 const initPropertyData = {
+  adminId: 0,
   name: "",
   description: "",
   type: "Casa",
+  country: "Colombia",
   bedrooms: 0,
   contract_type: "Venta",
   bathrooms: 0,
   address: "",
   price: 0,
-  status: true,
+  state: true,
   area: 0,
   age: 0,
 };
 
 const PropertyForm = () => {
   // hook functions
-  const { postHookData } = useContext(HomeContext);
+  const { postHookData, userHookData } = useContext(HomeContext);
 
   // fields property
+  const [postImages, setPostImages] = useState([]);
   const [propertyForm, setPropertyForm] = useState(initPropertyData);
   const {
     name,
@@ -30,6 +33,7 @@ const PropertyForm = () => {
     type,
     bedrooms,
     bathrooms,
+    country,
     contract_type,
     address,
     price,
@@ -48,7 +52,6 @@ const PropertyForm = () => {
 
     console.log("empty property inputs: ", emptyInputs);
 
-
     emptyInputs.map((val) => {
       error[val] = `El campo ${val} no puede ir vacio`;
     });
@@ -62,9 +65,19 @@ const PropertyForm = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    if (isValidated()) {
-      postHookData.handlerCreatePost(propertyForm);
-    }
+
+    if (userHookData.loginStatus.isAuth) {
+      let adminId = userHookData.loginStatus.user.administrator.id
+      setPropertyForm({
+        ...propertyForm,
+        adminId,
+      });
+      if (isValidated()) {
+        console.log("property to create: ", propertyForm);
+        // postHookData.handlerCreatePost(propertyForm)
+        postHookData.handlerSaveImages(postImages, propertyForm, adminId);
+      }
+    }else console.log("admin id not found!")
   };
 
   const onInputChange = ({ target }) => {
@@ -75,10 +88,15 @@ const PropertyForm = () => {
     });
   };
 
+  const handlerImageChange = (images) => {
+    console.log("images from drag drop: ", images);
+    setPostImages(images);
+  };
+
   return (
     <form onSubmit={onSubmit} className="bg-white flex flex-col">
       {/* IMAGE */}
-      <DragDropImage />
+      <DragDropImage handleImages={(imgs) => handlerImageChange(imgs)} />
 
       {/* PROPERTY NAME */}
       <section className="lg:mb-2 mt-4">
@@ -327,6 +345,40 @@ const PropertyForm = () => {
               <option>Casa</option>
               <option>Apartamento</option>
               <option>Oficina</option>
+            </select>
+            <article className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+              <svg
+                className="fill-current h-4 w-4"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+              >
+                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+              </svg>
+            </article>
+          </article>
+        </article>
+      </section>
+
+      {/* COUNTRY */}
+      <section className="w-full mt-2">
+        <article className="w-full mb-6 md:mb-0">
+          <label
+            className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+            htmlFor="grid-country"
+          >
+            Pais
+          </label>
+          <article className="relative ">
+            <select
+              id="grid-country"
+              name="country"
+              value={country}
+              onChange={onInputChange}
+              className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+            >
+              <option>Colombia</option>
+              <option>Argentina</option>
+              <option>Peru</option>
             </select>
             <article className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
               <svg
