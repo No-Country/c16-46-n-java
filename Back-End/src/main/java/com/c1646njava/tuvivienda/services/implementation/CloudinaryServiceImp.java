@@ -20,9 +20,9 @@ private Map<String, String> valuesMap = new HashMap<>();
 
 public CloudinaryServiceImp(){
 
-    valuesMap.put("cloud_name","dprhopips");
-    valuesMap.put("api_key","894311123961918");
-    valuesMap.put("api_secret","SAL6phTWQHcyVFHRN7RYlnKAy70");
+    valuesMap.put("cloud_name","");
+    valuesMap.put("api_key","");
+    valuesMap.put("api_secret","");
     cloudinary = new Cloudinary(valuesMap);
 }
 
