@@ -104,6 +104,7 @@ public class PostServiceI implements PostService {
         BeanUtils.copyProperties(post, postr,"image");
         postr.setImages(post.getImage());
         postr.setAdministrator_id(post.getAdministrator().getId());
+        postr.setContractType(post.getContract_type());
         return postr;
     }
 
@@ -111,6 +112,7 @@ public class PostServiceI implements PostService {
         Post postc = new Post();
         BeanUtils.copyProperties(post, postc, "adminId");
         postc.setAdministrator(administratorRepository.findById(post.adminId()).get());
+        postc.setContract_type(post.contract_type());
         postc.setFav(null);
         Post postv = postrepository.save(postc);
 
@@ -119,6 +121,7 @@ public class PostServiceI implements PostService {
         } else {
             postResponse postr = new postResponse();
             BeanUtils.copyProperties(postv, postr);
+            postr.setContractType(postv.getContract_type());
             postr.setAdministrator_id(postv.getAdministrator().getId());
             return postr;
         }
@@ -131,6 +134,7 @@ public class PostServiceI implements PostService {
         if(posteo.isPresent()){
             postResponse postr = new postResponse();
             BeanUtils.copyProperties(posteo.get(), postr, "image");
+            postr.setContractType(posteo.get().getContract_type());
             postr.setImages(posteo.get().getImage());
             postr.setAdministrator_id(posteo.get().getAdministrator().getId());
             return postr;
@@ -226,9 +230,15 @@ public class PostServiceI implements PostService {
     }
 
 
+<<<<<<< HEAD
     @Override
     public List<Post> findAllPostByAdministrator(Long administratorId) {
         return postrepository.findPostsByAdministrator(administratorId);
+=======
+
+    public List<Post> findAllPostByAdministrator(Long administratorId) {
+        return postrepository.findAllPostByAdministrator(administratorId);
+>>>>>>> fc42d70b1b6f57f06bd9d324355a5faddae1d8bc
     }
 
 

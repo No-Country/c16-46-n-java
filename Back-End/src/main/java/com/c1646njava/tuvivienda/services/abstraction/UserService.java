@@ -86,5 +86,6 @@ public interface UserService {
      * @throws IllegalArgumentException If the user or post is null.
      */
      void removePostFromFavorites(User user, Post post);
+
 }
 

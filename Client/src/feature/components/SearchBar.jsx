@@ -2,13 +2,33 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { HomeContext } from "../../context/HomeContext";
 
+const initialFilter = [
+  {
+    columnName: "bedrooms",
+    columnValue: 6
+  }
+];
 const SearchBar = () => {
-  const { homeHookData, userHookData } = useContext(HomeContext);
-  const [loginStatus, setLoginStatus] = useState(userHookData.loginStatus)
+  const { homeHookData, postHookData } = useContext(HomeContext);
+
+  const [filters, setFilters] = useState(initialFilter);
+
+  const onSearch = (e) => {
+    e.preventDefault();
+    /* setFilters(...filters, filters.push({
+      columnName : "type",
+      columnValue: "Casa"
+    })) */
+    console.log("filters: ", filters)
+    postHookData.getPostByFilter(filters);
+  };
 
   return (
     <div className="w-full sticky md:flex bg-gray-100 py-4 justify-center items-center md:space-x-4 px-2 space-y-2 md:space-y-0">
-      <form className="w-auto md:grid md:grid-cols-5 justify-center items-center md:space-x-2 space-y-2 md:space-y-0">
+      <form
+        onSubmit={onSearch}
+        className="w-auto md:grid md:grid-cols-5 justify-center items-center md:space-x-2 space-y-2 md:space-y-0"
+      >
         {/* SEARCH BY TYPE */}
         <article className="w-auto md:mb-0">
           <article className="flex relative">
@@ -88,7 +108,7 @@ const SearchBar = () => {
           />
           <button
             type="submit"
-            className="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2"
+            className="text-sky-700 absolute border end-2.5 bottom-2.5 hover:text-white hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2"
           >
             Buscar
           </button>

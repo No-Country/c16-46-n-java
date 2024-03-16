@@ -4,13 +4,13 @@ import LoginForm from "./forms/LoginForm";
 import { Route, Routes } from "react-router-dom";
 
 import PropTypes from "prop-types";
-import Calendar from "./menu/Calendar";
 import Notifications from "./menu/Notifications";
 import Messages from "./menu/Messages";
 import Settings from "./menu/Settings";
 import { HomeContext } from "../../context/HomeContext";
 import PropertyForm from "./forms/PropertyForm";
 import RegisterForm from "./forms/RegisterForm";
+import MyPost from "./menu/MyPost";
 
 const SideBar = () => {
   const { homeHookData } = useContext(HomeContext);
@@ -34,7 +34,7 @@ const SideBar = () => {
         <Routes>
           <Route path="/login" element={<LoginForm />} />
           <Route path="/register" element={<RegisterForm />} />
-          <Route path="/calendar" element={<Calendar />} />
+          <Route path="/post" element={<MyPost />} />
           <Route path="/notifications" element={<Notifications />} />
           <Route path="/messages" element={<Messages />} />
           <Route path="/settings" element={<Settings />} />

@@ -29,7 +29,7 @@ public interface PostRepository extends JpaRepository<Post, Long>, JpaSpecificat
     List<Post> findByFeaturedEquals(int featured);
 
     @Query("SELECT p FROM Post p WHERE p.administrator.id = :administratorId")
-    List<Post> findPostsByAdministrator(@Param("administratorId") Long administratorId);
+    List<Post> findAllPostByAdministrator(Long administratorId);
 }
 
 

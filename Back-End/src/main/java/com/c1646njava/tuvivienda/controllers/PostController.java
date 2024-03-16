@@ -8,6 +8,8 @@ import com.c1646njava.tuvivienda.models.post.DTO.postRequest;
 import com.c1646njava.tuvivienda.models.post.DTO.postResponse;
 import com.c1646njava.tuvivienda.models.post.Post;
 import com.c1646njava.tuvivienda.services.abstraction.PostService;
+import com.c1646njava.tuvivienda.services.implementation.PostServiceI;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;

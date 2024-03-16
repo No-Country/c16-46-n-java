@@ -26,7 +26,6 @@ public class UserServiceImp implements UserService {
     private final AdministratorRepository administratorRepository;
 
 
-
     @Override
     public User registerUser(RequestUser requestUser) {
         validateUserRequest(requestUser);
@@ -38,7 +37,6 @@ public class UserServiceImp implements UserService {
         user.setPassword(requestUser.password());
 
         return userRepository.save(user);
-
     }
 
 
@@ -69,11 +67,17 @@ public class UserServiceImp implements UserService {
     @Override
     public void updatePassword(Long userId, String password, String password2) throws AuthenticationException {
         if(password.equals(password2)){
+<<<<<<< HEAD
         userRepository.updateUserPassword(userId, password);
         }else throw new AuthenticationException("Passwords do not match");
     }
 
 
+=======
+            userRepository.updateUserPassword(userId, password);
+        }else throw new AuthenticationException("Passwords do not match");
+    }
+>>>>>>> fc42d70b1b6f57f06bd9d324355a5faddae1d8bc
     @Override
     public Administrator upgradeToAdmin(Long userId, String phoneNumber) throws AuthenticationException {
         User user = userRepository.findById(userId)

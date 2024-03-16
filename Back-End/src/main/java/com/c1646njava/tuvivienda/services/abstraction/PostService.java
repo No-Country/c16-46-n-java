@@ -125,4 +125,5 @@ public interface PostService {
 
     List<Post> findAllPostByAdministrator(Long administratorId);
 
+
 }

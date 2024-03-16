@@ -1,28 +1,34 @@
-import { useReducer, useState } from "react";
+import {  useReducer, useState } from "react";
 import { login, save } from "../services/userService";
 import { userReducer } from "../reducers/userReducer";
+import { toast } from 'react-toastify';
+
 
 // search a login
 const initialLogin = JSON.parse(sessionStorage.getItem("login")) ?? {
   isAuth: false,
-  user: undefined,
+  user: {
+    administrator: {id: 0}
+  },
 };
 
 export const useUser = () => {
   // login status
   const [loginStatus, dispatch] = useReducer(userReducer, initialLogin);
-  const [isAdmin, setAdmin] = useState(false)
+
+ 
+  const [isAdmin, setAdmin] = useState(initialLogin.user.administrator ? true : false)
 
   const handlerRegisterUser = async (user) => {
     let response;
     try {
       response = await save(user);
 
-      console.log("Register Status!!!", response.data);
-    } catch (error) {
+      toast.success("Registro exitoso!");
+      console.log(response);
+     } catch (error) {
       if (error.response) {
-        console.log("Register error!!!  ", error.response.data);
-        console.log("Register error!!!  ", error);
+        toast.error("Error al registrar usuario: " + error.response.data.message);
       }
     }
   };
@@ -30,13 +36,12 @@ export const useUser = () => {
   const handlerLoginUser = async (user) => {
     // must return the response to notify users the request status
     let response;
-
     try {
       response = await login(user);
 
-      console.log("Login User!!!", response);
+      toast.success("Inicio de sesión exitoso!");
     } catch (error) {
-      console.log("Login error!!!  ", error);
+      toast.error("Error al iniciar sesión: " + error.message);
     }
 
     // login success
@@ -76,10 +81,21 @@ export const useUser = () => {
     }
   };
 
+
+  const handlerLogout = () => {
+    // change the isAuth to false
+    dispatch({
+      type: "logout",
+    })
+    // delete the local data user
+    sessionStorage.removeItem("login")
+  }
+
   return {
     loginStatus,
     isAdmin,
     handlerLoginUser,
     handlerRegisterUser,
+    handlerLogout
   };
 };
